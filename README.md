@@ -144,8 +144,110 @@ font-weight: bold;
 }
 </style>
 ```
+</details>
+
+<details>
+  <summary>React</summary>
+  <br>
+
+```typescript
+function IntegrationTestPage() {
+  // Keep a reference to the widget iframe, so we can get its contentWindow for messaging
+  const iframeRef = React.useRef<HTMLIFrameElement>(null);
+
+  // In real projects, this comes from the project's wallet integration
+  const [account] = React.useState<string | undefined>(undefined);
+
+  // Generate the widget iframe url
+  const iframeUrl = WidgetController.generateWidgetIframeUrl({
+    // should be `true` to use the project's wallet integration
+    useParentSigner: true,
+    // this account address is used as the signer of the txns
+    accountAddress: account,
+    network: "testnet",
+    // This is the origin of the project that is using the widget
+    // Alternatively, `window.location.origin` can be used for client side rendering
+    parentUrlOrigin: "https://localhost:3000",
+  });
+
+  /**
+   * If the callbacks have dependencies to state variables (in this case `account`),
+   * make sure to wrap them in useCallback to prevent infinite loops.
+   */
+  const onTxnSignRequest = useCallback(
+    async ({ txGroups }: { txGroups: SignerTransaction[][] }) => {
+      try {
+        // Sign the txns with the project's wallet integration
+        const signedTxns = await signTxns({
+          signerAddress: account,
+          txGroups,
+        });
+
+        // Send the signed txns to the widget, so it can send them to the blockchain
+        WidgetController.sendMessageToWidget({
+          data: { message: { type: "TXN_SIGN_RESPONSE", signedTxns } },
+          targetWindow: iframeRef.current?.contentWindow,
+        });
+      } catch (error) {
+        // Let widget know that the txn signing failed
+        WidgetController.sendMessageToWidget({
+          data: { message: { type: "FAILED_TXN_SIGN", error } },
+          targetWindow: iframeRef.current?.contentWindow,
+        });
+      }
+    },
+    [account]
+  );
+  const onTxnSignRequestTimeout = useCallback(() => {
+    console.error("txn sign request timed out");
+  }, []);
+
+  const onSwapSuccess = useCallback(async (response: V2SwapExecution) => {
+    console.log({ response });
+
+    // You can show a success message to the user here,
+    // Or re-fetch the account data to show the updated balances
+  }, []);
+
+  useEffect(() => {
+    // create a new widget controller instance with the event handler callbacks
+    const swapController = new WidgetController({
+      onTxnSignRequest,
+      onTxnSignRequestTimeout,
+      onSwapSuccess,
+    });
+
+    // add event listeners to the widget iframe
+    swapController.addWidgetEventListeners();
+
+    return () => {
+      // remove event listeners from the widget iframe from unmounting the page
+      swapController.removeWidgetEventListeners();
+    };
+  }, [onSwapSuccess, onTxnSignRequest, onTxnSignRequestTimeout]);
+
+  return (
+    <iframe
+      ref={iframeRef}
+      title={"tinyman swap widget"}
+      className={"swap-widget-test-page__content__iframe"}
+      style={{ width: 400, height: 444 }}
+      src={iframeUrl}
+      sandbox={"allow-same-origin allow-scripts allow-popups allow-forms"}
+    />
+  );
+}
+
+/**
+ * This function should come from the project's wallet integration.
+ * Added here just for demonstration purposes.
+ */
+const signTxns: any = undefined;
+
+```
 
 </details>
+
 
 ## Static Methods
 
