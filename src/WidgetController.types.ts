@@ -83,6 +83,7 @@ export interface SwapWidgetThemeColorVariables {
   headerTitle?: string;
   containerButtonBg?: string;
   containerButtonText?: string;
+  iframeBg?: string;
 }
 
 export type SwapWidgetThemeVariables = SwapWidgetThemeColorVariables & {
