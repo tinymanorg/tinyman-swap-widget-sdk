@@ -1,5 +1,7 @@
 import {SignerTransaction, V2SwapExecution} from "@tinymanorg/tinyman-js-sdk";
 
+import {NetworkToggleValue} from "./constants";
+
 /**
  * `SignerTransaction` with the `txn` field encoded in base64
  */
@@ -83,6 +85,7 @@ export interface SwapWidgetThemeColorVariables {
   headerTitle?: string;
   containerButtonBg?: string;
   containerButtonText?: string;
+  iframeBg?: string;
 }
 
 export type SwapWidgetThemeVariables = SwapWidgetThemeColorVariables & {
@@ -103,3 +106,28 @@ export enum SwapWidgetBorderRadiusSize {
   Medium = "medium",
   Large = "large"
 }
+
+export type GenerateWidgetIframeUrlBaseParams = {
+  network?: NetworkToggleValue;
+  /** theme variables to customize the UI of the widget */
+  themeVariables?: SwapWidgetThemeVariables;
+  /** when provided, messages will be posted only to this origin.
+   * @example ```{parentUrlOrigin: "http://localhost:3001}```
+   */
+  parentUrlOrigin?: string;
+  /**
+   * the asset ids to be used for the swap.
+   * order: [assetInId, assetOutId]
+   */
+  assetIds?: [number, number];
+};
+
+export type GenerateWidgetIframeUrlParams =
+  | (GenerateWidgetIframeUrlBaseParams & {
+      useParentSigner: true;
+      /** address of the signer. will be used in transactions, and to show account data in the widget */
+      accountAddress: string;
+    })
+  | (GenerateWidgetIframeUrlBaseParams & {
+      useParentSigner: false;
+    });
