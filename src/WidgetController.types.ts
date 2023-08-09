@@ -125,6 +125,7 @@ export type GenerateWidgetIframeUrlBaseParams = {
 export type GenerateWidgetIframeUrlParams =
   | (GenerateWidgetIframeUrlBaseParams & {
       useParentSigner: true;
+      /** address of the signer. will be used in transactions, and to show account data in the widget */
       accountAddress: string;
     })
   | (GenerateWidgetIframeUrlBaseParams & {
