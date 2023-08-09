@@ -1,5 +1,7 @@
 import {SignerTransaction, V2SwapExecution} from "@tinymanorg/tinyman-js-sdk";
 
+import {NetworkToggleValue} from "./constants";
+
 /**
  * `SignerTransaction` with the `txn` field encoded in base64
  */
@@ -106,7 +108,7 @@ export enum SwapWidgetBorderRadiusSize {
 }
 
 export type GenerateWidgetIframeUrlBaseParams = {
-  network?: "mainnet" | "testnet";
+  network?: NetworkToggleValue;
   /** theme variables to customize the UI of the widget */
   themeVariables?: SwapWidgetThemeVariables;
   /** when provided, messages will be posted only to this origin.
