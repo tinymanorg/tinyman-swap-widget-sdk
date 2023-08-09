@@ -104,3 +104,27 @@ export enum SwapWidgetBorderRadiusSize {
   Medium = "medium",
   Large = "large"
 }
+
+export type GenerateWidgetIframeUrlBaseParams = {
+  network?: "mainnet" | "testnet";
+  /** theme variables to customize the UI of the widget */
+  themeVariables?: SwapWidgetThemeVariables;
+  /** when provided, messages will be posted only to this origin.
+   * @example ```{parentUrlOrigin: "http://localhost:3001}```
+   */
+  parentUrlOrigin?: string;
+  /**
+   * the asset ids to be used for the swap.
+   * orrder: [assetInId, assetOutId]
+   */
+  assetIds?: [number, number];
+};
+
+export type GenerateWidgetIframeUrlParams =
+  | (GenerateWidgetIframeUrlBaseParams & {
+      useParentSigner: true;
+      accountAddress: string;
+    })
+  | (GenerateWidgetIframeUrlBaseParams & {
+      useParentSigner: false;
+    });

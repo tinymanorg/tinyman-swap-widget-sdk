@@ -3,9 +3,9 @@ import {decodeUnsignedTransaction} from "algosdk";
 
 import {
   ApplicationToSwapWidgetMessage,
-  SwapWidgetThemeVariables,
   SwapWidgetToApplicationMessage,
-  SwapWidgetSearchParamKey
+  SwapWidgetSearchParamKey,
+  GenerateWidgetIframeUrlParams
 } from "./WidgetController.types";
 
 const SWAP_WIDGET_BASE_URL = "https://hipo.github.io/ui098gh4350u9h435y-swap-widget/";
@@ -58,44 +58,25 @@ export class WidgetController {
   /**
    * @returns the url of the swap widget including the customization params, to be used in an iframe
    */
-  static generateWidgetIframeUrl({
-    useParentSigner,
-    accountAddress,
-    themeVariables,
-    network,
-    parentUrlOrigin,
-    assetIds
-  }: {
-    useParentSigner?: boolean;
-    network?: "mainnet" | "testnet";
-    accountAddress?: string | null;
-    /** theme variables to customize the UI of the widget */
-    themeVariables?: SwapWidgetThemeVariables;
-    /** when provided, messages will be posted only to this origin.
-     * @example ```{parentUrlOrigin: "http://localhost:3001}```
-     */
-    parentUrlOrigin?: string;
-    /**
-     * the asset ids to be used for the swap.
-     * orrder: [assetInId, assetOutId]
-     */
-    assetIds?: [number, number];
-  }) {
-    const params: Record<SwapWidgetSearchParamKey, string> = {} as Record<
+  static generateWidgetIframeUrl(params: GenerateWidgetIframeUrlParams) {
+    const searchParams: Record<SwapWidgetSearchParamKey, string> = {} as Record<
       SwapWidgetSearchParamKey,
       string
     >;
+    const {useParentSigner, assetIds, network, parentUrlOrigin, themeVariables} = params;
 
     if (useParentSigner) {
-      params[SwapWidgetSearchParamKey.USE_PARENT_SIGNER] = String(useParentSigner);
+      const {accountAddress} = params;
+
+      searchParams[SwapWidgetSearchParamKey.USE_PARENT_SIGNER] = String(useParentSigner);
 
       if (accountAddress) {
-        params[SwapWidgetSearchParamKey.ACCOUNT_ADDRESS] = accountAddress;
+        searchParams[SwapWidgetSearchParamKey.ACCOUNT_ADDRESS] = accountAddress;
       }
     }
 
     if (network) {
-      params[SwapWidgetSearchParamKey.NETWORK] = network;
+      searchParams[SwapWidgetSearchParamKey.NETWORK] = network;
     }
 
     if (themeVariables) {
@@ -103,21 +84,21 @@ export class WidgetController {
         "base64"
       );
 
-      params[SwapWidgetSearchParamKey.THEME_VARIABLES] = colorsEncoded;
+      searchParams[SwapWidgetSearchParamKey.THEME_VARIABLES] = colorsEncoded;
     }
 
     if (parentUrlOrigin) {
       // encode and pass as base64
-      params[SwapWidgetSearchParamKey.PARENT_URL_ORIGIN] =
+      searchParams[SwapWidgetSearchParamKey.PARENT_URL_ORIGIN] =
         Buffer.from(parentUrlOrigin).toString("base64");
     }
 
     if (assetIds) {
-      params[SwapWidgetSearchParamKey.ASSET_IN] = String(assetIds[0]);
-      params[SwapWidgetSearchParamKey.ASSET_OUT] = String(assetIds[1]);
+      searchParams[SwapWidgetSearchParamKey.ASSET_IN] = String(assetIds[0]);
+      searchParams[SwapWidgetSearchParamKey.ASSET_OUT] = String(assetIds[1]);
     }
 
-    return `${SWAP_WIDGET_BASE_URL}?${new URLSearchParams(params)}`;
+    return `${SWAP_WIDGET_BASE_URL}?${new URLSearchParams(searchParams)}`;
   }
 
   /**
