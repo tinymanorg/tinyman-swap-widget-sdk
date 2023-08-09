@@ -115,7 +115,7 @@ export type GenerateWidgetIframeUrlBaseParams = {
   parentUrlOrigin?: string;
   /**
    * the asset ids to be used for the swap.
-   * orrder: [assetInId, assetOutId]
+   * order: [assetInId, assetOutId]
    */
   assetIds?: [number, number];
 };
