@@ -75,7 +75,15 @@ export enum SwapWidgetSearchParamKey {
   ASSET_IN = "assetIn",
 
   /** ID of the asset to be used as the output asset for the swap, default = USDC */
-  ASSET_OUT = "assetOut"
+  ASSET_OUT = "assetOut",
+
+  /** If given, an extra payment will be taken from user.
+  @example 0.5 for 0.5% of the swap input amount
+    */
+  PLATFORM_FEE_PERCENTAGE = "platformFeePercentage",
+
+  /** The account which the platform fee will be paid to. It is required if ` `PLATFORM_FEE_PERCENTAGE` is provided */
+  PLATFORM_FEE_ACCOUNT = "platformFeeAccount"
 }
 
 export interface SwapWidgetThemeColorVariables {
@@ -107,7 +115,7 @@ export enum SwapWidgetBorderRadiusSize {
   Large = "large"
 }
 
-export type GenerateWidgetIframeUrlBaseParams = {
+type GenerateWidgetIframeUrlBaseParams = {
   network?: NetworkToggleValue;
   /** theme variables to customize the UI of the widget */
   themeVariables?: SwapWidgetThemeVariables;
@@ -122,12 +130,31 @@ export type GenerateWidgetIframeUrlBaseParams = {
   assetIds?: [number, number];
 };
 
-export type GenerateWidgetIframeUrlParams =
-  | (GenerateWidgetIframeUrlBaseParams & {
+type GenerateWidgetIframeUrlSignerParams =
+  | {
       useParentSigner: true;
       /** address of the signer. will be used in transactions, and to show account data in the widget */
       accountAddress: string;
-    })
-  | (GenerateWidgetIframeUrlBaseParams & {
+    }
+  | {
       useParentSigner: false;
-    });
+    };
+
+type GenerateWidgetIframeUrlPlatformFeeParams =
+  | {
+      /** If given, an extra payment will be taken from user.
+  @example 0.5 for 0.5% of the swap input amount
+    */
+      platformFeePercentage: number;
+
+      /** The account which the platform fee will be paid to. It is required if ` `PLATFORM_FEE_PERCENTAGE` is provided */
+      platformFeeAccount: string;
+    }
+  | {
+      platformFeePercentage?: never;
+      platformFeeAccount?: never;
+    };
+
+export type GenerateWidgetIframeUrlParams = GenerateWidgetIframeUrlBaseParams &
+  GenerateWidgetIframeUrlSignerParams &
+  GenerateWidgetIframeUrlPlatformFeeParams;

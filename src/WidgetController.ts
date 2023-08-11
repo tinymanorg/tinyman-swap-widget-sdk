@@ -63,7 +63,15 @@ export class WidgetController {
       SwapWidgetSearchParamKey,
       string
     >;
-    const {useParentSigner, assetIds, network, parentUrlOrigin, themeVariables} = params;
+    const {
+      useParentSigner,
+      assetIds,
+      network,
+      parentUrlOrigin,
+      themeVariables,
+      platformFeeAccount,
+      platformFeePercentage
+    } = params;
 
     if (useParentSigner) {
       const {accountAddress} = params;
@@ -96,6 +104,12 @@ export class WidgetController {
     if (assetIds) {
       searchParams[SwapWidgetSearchParamKey.ASSET_IN] = String(assetIds[0]);
       searchParams[SwapWidgetSearchParamKey.ASSET_OUT] = String(assetIds[1]);
+    }
+
+    if (platformFeeAccount && platformFeePercentage) {
+      searchParams[SwapWidgetSearchParamKey.PLATFORM_FEE_ACCOUNT] = platformFeeAccount;
+      searchParams[SwapWidgetSearchParamKey.PLATFORM_FEE_PERCENTAGE] =
+        String(platformFeePercentage);
     }
 
     return `${SWAP_WIDGET_BASE_URL}?${new URLSearchParams(searchParams)}`;
