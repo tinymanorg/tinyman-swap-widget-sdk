@@ -1,4 +1,4 @@
-## Tinyman Swap Widget JS SDK
+## Tinyman Swap Widget JS SDK  [![npm version](https://badge.fury.io/js/@tinymanorg%2Ftinyman-swap-widget-sdk.svg)]([https://badge.fury.io/js/@tinymanorg%2Ftinyman-swap-widget-sdk](https://www.npmjs.com/package/@tinymanorg/tinyman-swap-widget-sdk))
 
 Easily integrate it into your dApp with JavaScript SDK.
 
