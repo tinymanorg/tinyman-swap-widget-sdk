@@ -83,7 +83,9 @@ export enum SwapWidgetSearchParamKey {
   PLATFORM_FEE_PERCENTAGE = "platformFeePercentage",
 
   /** The account which the platform fee will be paid to. It is required if ` `PLATFORM_FEE_PERCENTAGE` is provided */
-  PLATFORM_FEE_ACCOUNT = "platformFeeAccount"
+  PLATFORM_FEE_ACCOUNT = "platformFeeAccount",
+
+  PLATFORM_NAME = "platformName"
 }
 
 export interface SwapWidgetThemeColorVariables {
@@ -116,6 +118,8 @@ export enum SwapWidgetBorderRadiusSize {
 }
 
 type GenerateWidgetIframeUrlBaseParams = {
+  platformName: string;
+
   network?: NetworkToggleValue;
   /** theme variables to customize the UI of the widget */
   themeVariables?: SwapWidgetThemeVariables;
