@@ -70,8 +70,11 @@ export class WidgetController {
       parentUrlOrigin,
       themeVariables,
       platformFeeAccount,
-      platformFeePercentage
+      platformFeePercentage,
+      platformName
     } = params;
+
+    searchParams[SwapWidgetSearchParamKey.PLATFORM_NAME] = platformName;
 
     if (useParentSigner) {
       const {accountAddress} = params;
