@@ -109,8 +109,11 @@ export class WidgetController {
       searchParams[SwapWidgetSearchParamKey.ASSET_OUT] = String(assetIds[1]);
     }
 
-    if (platformFeeAccount && platformFeePercentage) {
+    if (platformFeeAccount) {
       searchParams[SwapWidgetSearchParamKey.PLATFORM_FEE_ACCOUNT] = platformFeeAccount;
+    }
+
+    if (platformFeePercentage) {
       searchParams[SwapWidgetSearchParamKey.PLATFORM_FEE_PERCENTAGE] =
         String(platformFeePercentage);
     }
