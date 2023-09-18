@@ -1,6 +1,6 @@
 {
   "name": "@tinymanorg/tinyman-swap-widget-sdk",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Easily integrate Tinyman Swap Widget into your dApp with JavaScript SDK.",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
