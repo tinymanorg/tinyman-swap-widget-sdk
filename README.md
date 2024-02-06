@@ -245,7 +245,6 @@ function IntegrationTestPage() {
 const signTxns: any = undefined;
 
 ```
-
 </details>
 
 
