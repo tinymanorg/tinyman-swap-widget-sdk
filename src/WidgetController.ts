@@ -8,7 +8,7 @@ import {
   GenerateWidgetIframeUrlParams
 } from "./WidgetController.types";
 
-const SWAP_WIDGET_BASE_URL = "https://hipo.github.io/ui098gh4350u9h435y-swap-widget/";
+const SWAP_WIDGET_BASE_URL = "https://tinymanorg.github.io/swap-widget/";
 const SWAP_WIDGET_ORIGIN = new URL(SWAP_WIDGET_BASE_URL).origin;
 
 export interface WidgetControllerEventListenerCallbacks {
