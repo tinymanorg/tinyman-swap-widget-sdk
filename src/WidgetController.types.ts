@@ -85,7 +85,9 @@ export enum SwapWidgetSearchParamKey {
   /** The account which the platform fee will be paid to. It is required if ` `PLATFORM_FEE_PERCENTAGE` is provided */
   PLATFORM_FEE_ACCOUNT = "platformFeeAccount",
 
-  PLATFORM_NAME = "platformName"
+  PLATFORM_NAME = "platformName",
+
+  SELECTABLE_ASSETS = "selectableAssets"
 }
 
 export interface SwapWidgetThemeColorVariables {
@@ -119,7 +121,6 @@ export enum SwapWidgetBorderRadiusSize {
 
 type GenerateWidgetIframeUrlBaseParams = {
   platformName: string;
-
   network?: NetworkToggleValue;
   /** theme variables to customize the UI of the widget */
   themeVariables?: SwapWidgetThemeVariables;
@@ -132,6 +133,8 @@ type GenerateWidgetIframeUrlBaseParams = {
    * order: [assetInId, assetOutId]
    */
   assetIds?: [number, number];
+  /** If provided, only the assets with the given ids will be displayed in the asset select modal */
+  selectableAssets?: number[];
 };
 
 type GenerateWidgetIframeUrlSignerParams =
