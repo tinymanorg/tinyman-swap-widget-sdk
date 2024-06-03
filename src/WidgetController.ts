@@ -121,7 +121,7 @@ export class WidgetController {
 
     if (selectableAssets) {
       searchParams[SwapWidgetSearchParamKey.SELECTABLE_ASSETS] =
-        JSON.stringify(selectableAssets);
+        selectableAssets.join(",");
     }
 
     return `${SWAP_WIDGET_BASE_URL}?${new URLSearchParams(searchParams)}`;
