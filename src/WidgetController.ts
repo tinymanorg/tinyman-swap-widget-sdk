@@ -118,6 +118,12 @@ export class WidgetController {
         String(platformFeePercentage);
     }
 
+    if (params.selectableAssets && params.selectableAssets?.length > 0) {
+      searchParams[SwapWidgetSearchParamKey.SELECTABLE_ASSETS] = JSON.stringify(
+        params.selectableAssets
+      );
+    }
+
     return `${SWAP_WIDGET_BASE_URL}?${new URLSearchParams(searchParams)}`;
   }
 
