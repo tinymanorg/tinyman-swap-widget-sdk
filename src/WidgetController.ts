@@ -71,7 +71,8 @@ export class WidgetController {
       themeVariables,
       platformFeeAccount,
       platformFeePercentage,
-      platformName
+      platformName,
+      selectableAssets
     } = params;
 
     searchParams[SwapWidgetSearchParamKey.PLATFORM_NAME] = platformName;
@@ -118,10 +119,9 @@ export class WidgetController {
         String(platformFeePercentage);
     }
 
-    if (params.selectableAssets && params.selectableAssets?.length > 0) {
-      searchParams[SwapWidgetSearchParamKey.SELECTABLE_ASSETS] = JSON.stringify(
-        params.selectableAssets
-      );
+    if (selectableAssets) {
+      searchParams[SwapWidgetSearchParamKey.SELECTABLE_ASSETS] =
+        JSON.stringify(selectableAssets);
     }
 
     return `${SWAP_WIDGET_BASE_URL}?${new URLSearchParams(searchParams)}`;
