@@ -62,7 +62,7 @@
   },
   "homepage": "https://github.com/tinymanorg/tinyman-swap-widget-sdk#readme",
   "dependencies": {
-    "@tinymanorg/tinyman-js-sdk": "github:tinymanorg/tinyman-js-sdk#67291a4571b04ea825f2c29b339dc3c6b2090b4b",
+    "@tinymanorg/tinyman-js-sdk": "github:tinymanorg/tinyman-js-sdk#9425ae521a7a3d0f93ba807c2963a6dfea63afdf",
     "algosdk": "^3.0.0"
   }
 }
