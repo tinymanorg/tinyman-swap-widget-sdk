@@ -5,7 +5,8 @@ import {
   ApplicationToSwapWidgetMessage,
   SwapWidgetToApplicationMessage,
   SwapWidgetSearchParamKey,
-  GenerateWidgetIframeUrlParams
+  GenerateWidgetIframeUrlParams,
+  ConfirmedTxnProcessData
 } from "./WidgetController.types";
 
 const SWAP_WIDGET_BASE_URL = "https://tinymanorg.github.io/swap-widget/";
@@ -22,6 +23,7 @@ export interface WidgetControllerEventListenerCallbacks {
   /** will be called when widget stops waiting for signed txn after some time */
   onTxnSignRequestTimeout?: VoidFunction;
   onSwapSuccess?: (response: V2SwapExecution) => void | Promise<void>;
+  onLiquidStakeSuccess?: (response: ConfirmedTxnProcessData) => void | Promise<void>;
 }
 
 export class WidgetController {
