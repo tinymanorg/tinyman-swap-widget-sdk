@@ -11,6 +11,11 @@ export declare type SignerEncodedTransaction = Omit<SignerTransaction, "txn"> & 
      **/
     txn: Uint8Array;
 };
+export declare type ConfirmedTxnProcessData = {
+    confirmedRound: number;
+    txnID: string;
+    signedTxns: Uint8Array[];
+}[];
 /**
  * Message sent from the swap widget to the app
  */
@@ -26,6 +31,9 @@ export interface SwapWidgetToApplicationMessage {
         type: "SWAP_SUCCESS";
         /** An object including the details about the swap */
         response: V2SwapExecution;
+    } | {
+        type: "LIQUID_STAKE_SUCCESS";
+        response: ConfirmedTxnProcessData;
     };
 }
 /**

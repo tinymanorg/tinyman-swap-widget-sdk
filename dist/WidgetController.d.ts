@@ -1,5 +1,5 @@
 import { SignerTransaction, V2SwapExecution } from "@tinymanorg/tinyman-js-sdk";
-import { ApplicationToSwapWidgetMessage, SwapWidgetToApplicationMessage, GenerateWidgetIframeUrlParams } from "./WidgetController.types";
+import { ApplicationToSwapWidgetMessage, SwapWidgetToApplicationMessage, GenerateWidgetIframeUrlParams, ConfirmedTxnProcessData } from "./WidgetController.types";
 export interface WidgetControllerEventListenerCallbacks {
     /** will be called when the parent application needs to sign a transaction
      * and then send it back to the widget (using `WidgetController.sendMessageToWidget()`) */
@@ -9,6 +9,7 @@ export interface WidgetControllerEventListenerCallbacks {
     /** will be called when widget stops waiting for signed txn after some time */
     onTxnSignRequestTimeout?: VoidFunction;
     onSwapSuccess?: (response: V2SwapExecution) => void | Promise<void>;
+    onLiquidStakeSuccess?: (response: ConfirmedTxnProcessData) => void | Promise<void>;
 }
 export declare class WidgetController {
     messageListener: (event: MessageEvent<SwapWidgetToApplicationMessage>) => void | undefined;
