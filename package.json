@@ -18,14 +18,14 @@
     "url": "git+https://github.com/tinymanorg/tinyman-swap-widget-sdk.git"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.19.0",
-    "@babel/preset-typescript": "^7.18.6",
+    "@babel/preset-env": "^7.26.9",
+    "@babel/preset-typescript": "^7.27.0",
     "@hipo/eslint-config-base": "4.3.0",
     "@hipo/eslint-config-typescript": "1.2.0",
-    "@rollup/plugin-babel": "^5.3.1",
-    "@rollup/plugin-commonjs": "^22.0.2",
-    "@rollup/plugin-json": "^4.1.0",
-    "@rollup/plugin-node-resolve": "^14.0.0",
+    "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-commonjs": "^28.0.3",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^16.0.1",
     "@types/node": "^20.1.4",
     "@typescript-eslint/eslint-plugin": "5.17.0",
     "@typescript-eslint/parser": "5.17.0",
@@ -59,7 +59,7 @@
   },
   "homepage": "https://github.com/tinymanorg/tinyman-swap-widget-sdk#readme",
   "dependencies": {
-    "@tinymanorg/tinyman-js-sdk": "github:tinymanorg/tinyman-js-sdk#49b9d43fc593ac33a72a67bfd89bd63311100cd0",
+    "@tinymanorg/tinyman-js-sdk": "github:tinymanorg/tinyman-js-sdk#c8119fd7f132d0f3ae20fe2e35f1463ef7ead19b",
     "algosdk": "^3.2.0"
   }
 }
